@@ -170,6 +170,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .read {
@@ -183,6 +184,22 @@ main {
     border: 2px solid rgb(78, 133, 81);
     cursor: pointer;
     transition: background-color, .1s;
+}
+
+.remove {
+    transition: background-color, .1s;
+}
+
+.remove:hover {
+    background-color: rgb(200, 42, 42);
+}
+
+.remove > img {
+    transition: filter, .1s;
+}
+
+.remove:hover > img {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(169deg) brightness(102%) contrast(102%);
 }
 
 .book-card > .options img {
@@ -237,7 +254,13 @@ fieldset > img {
     position: absolute;
     top: 12px;
     right: 12px;
+    border-radius: 20px;
     cursor: pointer;
+    transition: background-color, .1s;
+}
+
+fieldset > img:hover {
+    background-color: rgb(226, 226, 226);
 }
 
 form div {
