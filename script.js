@@ -42,7 +42,7 @@ function addBooktoLibrary(event) {
     
     /* Set the card values to the values of the book we just added
     to the myLibrary Array */
-    tempCard.querySelector('.title').textContent = myLibrary[myLibrary.length-1].title;
+    tempCard.querySelector('.title').textContent = '"' + myLibrary[myLibrary.length-1].title + '"';
     tempCard.querySelector('.author').textContent = 'by ' + myLibrary[myLibrary.length-1].author;
     tempCard.querySelector('.pages').textContent = myLibrary[myLibrary.length-1].pages + ' pages';
     

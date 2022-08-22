@@ -1,4 +1,4 @@
-#library-app
+# Library App
 
 Create a simple working library app where you can add books,
 their info, and whether or not you've read them. You will
