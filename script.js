@@ -68,7 +68,7 @@ function addBooktoLibrary(event) {
 
     // Iterate the unique ID number
     uniqueID++;
-    
+
     // Reset the form to its default values
     form.reset();
 }
@@ -86,54 +86,63 @@ function removeOverlay() {
 // Toggle the read button from read to unread
 function readToggle(event) {
     let button = event.target;
-    let dataPos = event.path[2].getAttribute('data-position');
+    let card = event.composedPath()[2];
 
+    /* Loop until you find the array entry that matches the card's ID */
+    for (let i = 0; i < myLibrary.length; i++) {
+        if (myLibrary[i].id == card.getAttribute('data-position')) {
+            // If the book is currently 'unread'...
+            if(button.classList.contains('unread')) {
+                // Display the green 'read' button
+                button.classList.remove('unread');
+                /* Setthe 'read' property to true. */
+                myLibrary[i].read = 'true';
 
-    console.log(event.path[2].getAttribute('data-position'));
-
-    // If the book is currently 'unread'...
-    if(button.classList.contains('unread')) {
-
-        // Display the green 'read' button
-        button.classList.remove('unread');
-
-        /* Grab the unique identifier, look it up in the array, and set
-        the 'read' property to true. */
-        myLibrary[dataPos].read = 'true';
-
-    } else { // Otherwise, the book is currently 'read'
-
-        // Display the red 'unread' button
-        button.classList.add('unread');
-
-        /* Grab the unique identifier, look it up in the array, and set
-        the 'read' property to false. */
-        myLibrary[dataPos].read = 'false';
-
+            } else { // Otherwise, the book is currently 'read'
+                // Display the red 'unread' button
+                button.classList.add('unread');
+                /* Set the 'read' property to false. */
+                myLibrary[i].read = 'false';
+            }
+            console.log(myLibrary[i].read)
+        }
     }
 
-    console.log(myLibrary[dataPos])
+    
 }
 
 function removeCard(event) {
     let card = findParentCard(event);
-    let cardLocation = null;
-    console.log(card);
-
     
+    // Loop until you find the array entry that matches the card
     for (let i = 0; i < myLibrary.length; i++) {
         if (myLibrary[i].id == card.getAttribute('data-position')) {
-            console.log('bababooey');
+            let temp = myLibrary;
+
+            /* Insert all the books before the removed book into
+            the new array */
+            myLibrary = temp.slice(0, i);
+            /* Insert all the books after the removed book into
+            the new array */
+            myLibrary.push(...temp.slice(i+1));
+
+            break;
         }
     }
+
+    // Remove the card from the grid.
+    card.remove();
+
+
+    console.log(myLibrary);
 }
 
 function findParentCard(event) {
     /* If the user clicked the nested image, the card element
     is path[3], otherwise it's path[2] */
     if (event.target.nodeName === 'IMG') {
-        return event.path[3];
+        return event.composedPath()[3];
     } else {
-        return event.path[2];
+        return event.composedPath()[2];
     }
 }
